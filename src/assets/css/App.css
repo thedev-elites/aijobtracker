@@ -1,0 +1,17 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 60px;
+  transition: margin-left 0.3s ease;
+}
+
+/* When sidebar panel is open */
+.main-content.panel-open {
+  margin-left: 360px;
+} 

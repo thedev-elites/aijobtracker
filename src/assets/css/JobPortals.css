@@ -1,0 +1,154 @@
+.job-portals-page {
+  padding: 40px 20px;
+}
+
+.job-search {
+  display: flex;
+  max-width: 800px;
+  margin: 0 auto 40px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px 0 0 4px;
+  font-size: 16px;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #4a6cf7;
+}
+
+.search-btn {
+  background-color: #4a6cf7;
+  color: white;
+  border: none;
+  padding: 0 20px;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.search-btn:hover {
+  background-color: #3a5ce5;
+}
+
+.job-listings {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.job-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  padding: 25px;
+  transition: transform 0.3s;
+}
+
+.job-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.job-header h2 {
+  color: #2d3748;
+  font-size: 1.5rem;
+}
+
+.company-rating {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.rating {
+  font-weight: bold;
+  color: #4a6cf7;
+  margin-bottom: 5px;
+}
+
+.stars {
+  color: #f6ad55;
+  letter-spacing: 2px;
+}
+
+.job-company {
+  display: flex;
+  justify-content: space-between;
+  color: #4a5568;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.job-description {
+  color: #4a5568;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.job-details {
+  background-color: #f7fafc;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.detail-item {
+  margin-bottom: 10px;
+}
+
+.detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.detail-item h4 {
+  color: #2d3748;
+  margin-bottom: 5px;
+}
+
+.detail-item p {
+  color: #4a5568;
+}
+
+.job-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.job-actions .btn-primary,
+.job-actions .btn-secondary {
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .job-header {
+    flex-direction: column;
+  }
+  
+  .company-rating {
+    align-items: flex-start;
+    margin-top: 10px;
+  }
+  
+  .job-company {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .job-actions {
+    flex-direction: column;
+  }
+} 
