@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Header from './components/Header';
@@ -10,6 +11,7 @@ import ResumeBuilder from './pages/ResumeBuilder';
 import ResumeTemplates from './pages/ResumeTemplates';
 import JobPortals from './pages/JobPortals';
 import Profile from './pages/Profile';
+import ResumePreview from './components/ResumePreview';
 import Sidebar from './components/Sidebar';
 import './assets/css/App.css';
 
@@ -22,6 +24,11 @@ const ProtectedRoute = ({ children }) => {
   }
   
   return children;
+};
+
+// Add PropTypes validation
+ProtectedRoute.propTypes = {
+  children: PropTypes.node.isRequired
 };
 
 function App() {
@@ -49,6 +56,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <ResumeBuilder />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/preview" 
+                element={
+                  <ProtectedRoute>
+                    <ResumePreview />
                   </ProtectedRoute>
                 } 
               />

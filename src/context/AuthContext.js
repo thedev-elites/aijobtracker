@@ -1,4 +1,5 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { loginUser, registerUser, logoutUser, getCurrentUser } from '../services/authService';
 
 const AuthContext = createContext();
@@ -27,9 +28,11 @@ export const AuthProvider = ({ children }) => {
     };
 
     checkAuthStatus();
+    // This effect should only run once on component mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const login = async (email, password) => {
+  const login = useCallback(async (email, password) => {
     try {
       const userData = await loginUser(email, password);
       setCurrentUser(userData);
@@ -38,9 +41,9 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       return { success: false, error: error.message };
     }
-  };
+  }, []);
 
-  const signup = async (userData) => {
+  const signup = useCallback(async (userData) => {
     try {
       const newUser = await registerUser(userData);
       setCurrentUser(newUser);
@@ -49,9 +52,9 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       return { success: false, error: error.message };
     }
-  };
+  }, []);
 
-  const logout = async () => {
+  const logout = useCallback(async () => {
     try {
       await logoutUser();
       setCurrentUser(null);
@@ -60,7 +63,7 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       return { success: false, error: error.message };
     }
-  };
+  }, []);
 
   const value = {
     currentUser,
@@ -76,4 +79,8 @@ export const AuthProvider = ({ children }) => {
       {!loading && children}
     </AuthContext.Provider>
   );
+};
+
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired
 }; 

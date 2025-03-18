@@ -1,0 +1,598 @@
+.preview-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.preview-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.preview-header h1 {
+  font-size: 2rem;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.preview-header p {
+  color: #6b7280;
+  font-size: 1.125rem;
+}
+
+.preview-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.preview-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.resume-preview {
+  background: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin: 0 auto;
+  max-width: 800px;
+  min-height: 1100px;
+  overflow: hidden;
+  position: relative;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-success {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-primary {
+  background-color: #2563eb;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+}
+
+.btn-secondary {
+  background-color: #f3f4f6;
+  color: #4b5563;
+  border: 1px solid #d1d5db;
+}
+
+.btn-secondary:hover {
+  background-color: #e5e7eb;
+}
+
+.btn-success {
+  background-color: #10b981;
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: #059669;
+}
+
+.icon-edit,
+.icon-download,
+.icon-check {
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+/* Common styles for all templates */
+.modern-template,
+.professional-template,
+.creative-template {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #1f2937;
+  line-height: 1.6;
+  overflow: hidden;
+  max-width: 800px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.modern-template header,
+.professional-template header {
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #2563eb;
+  padding-bottom: 1rem;
+}
+
+.modern-template h1,
+.professional-template h1,
+.creative-template h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.modern-template h2,
+.professional-template h2,
+.creative-template h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2563eb;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.modern-template h3,
+.professional-template h3,
+.creative-template h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+.contact-info {
+  color: #4b5563;
+  font-size: 0.875rem;
+}
+
+.contact-info p {
+  margin: 0.25rem 0;
+}
+
+section {
+  margin-bottom: 2rem;
+}
+
+.experience-item,
+.education-item,
+.certification-item {
+  margin-bottom: 1.5rem;
+}
+
+.job-header {
+  margin-bottom: 0.5rem;
+}
+
+.company {
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.date {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.job-description {
+  color: #4b5563;
+  white-space: pre-line;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-tag {
+  background-color: #e5e7eb;
+  color: #374151;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.languages-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.language-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: #f9fafb;
+  border-radius: 0.375rem;
+}
+
+.proficiency {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+/* Professional Template specific styles */
+.professional-template {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+}
+
+.professional-template .two-column {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.professional-template .right-column {
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+/* Creative Template specific styles */
+.creative-template {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 0;
+  min-height: 1100px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+
+.creative-template .sidebar {
+  background-color: #1e3a8a;
+  color: white;
+  padding: 2rem;
+  min-height: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.creative-template .profile {
+  margin-bottom: 2rem;
+}
+
+.creative-template .sidebar h1,
+.creative-template .sidebar h2 {
+  color: white;
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+  word-break: break-word;
+}
+
+.creative-template .sidebar h1 {
+  font-size: 1.75rem;
+  line-height: 1.3;
+  margin-bottom: 1rem;
+}
+
+.creative-template .sidebar .contact-info {
+  margin-bottom: 1.5rem;
+}
+
+.creative-template .contact-info {
+  color: #e5e7eb;
+  word-break: break-word;
+  font-size: 0.875rem;
+}
+
+.creative-template .contact-info p {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.creative-template .main-content {
+  padding: 2rem;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.creative-template .skills-list {
+  margin-top: 1rem;
+}
+
+.creative-template .skill-tag {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  margin-right: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.creative-template .experience-item {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.creative-template .experience-item:last-child {
+  border-bottom: none;
+}
+
+.creative-template .job-header {
+  margin-bottom: 0.75rem;
+}
+
+.creative-template .job-description {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.creative-template .job-header h3, 
+.creative-template .education-item h3,
+.creative-template .certification-item h3 {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+/* Error container styles */
+.error-container {
+  max-width: 600px;
+  margin: 5rem auto;
+  text-align: center;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.error-container h2 {
+  color: #dc2626;
+  margin-bottom: 1rem;
+}
+
+.error-container p {
+  margin-bottom: 1.5rem;
+  color: #4b5563;
+}
+
+/* Print styles - improved */
+@media print {
+  @page {
+    size: letter portrait;
+    margin: 0;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+  }
+  
+  .resume-preview {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    overflow: visible;
+    page-break-inside: avoid;
+  }
+  
+  .preview-header,
+  .preview-actions,
+  .preview-footer {
+    display: none !important;
+  }
+
+  .creative-template {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    min-height: auto;
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+  
+  .creative-template .sidebar {
+    background-color: #1e3a8a !important;
+    color: white !important;
+    -webkit-print-color-adjust: exact !important;
+    page-break-inside: avoid;
+  }
+  
+  .creative-template .skill-tag {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    -webkit-print-color-adjust: exact !important;
+  }
+  
+  .professional-template .right-column {
+    background-color: #f9fafb !important;
+    -webkit-print-color-adjust: exact !important;
+  }
+  
+  /* Remove max-height constraints for printing */
+  .job-description,
+  .education-item p,
+  .certification-item p {
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .preview-container {
+    padding: 1rem;
+  }
+
+  .preview-actions,
+  .preview-footer {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .preview-actions button,
+  .preview-footer button {
+    width: 100%;
+  }
+
+  .professional-template .two-column {
+    grid-template-columns: 1fr;
+  }
+
+  .creative-template {
+    grid-template-columns: 1fr;
+  }
+
+  .creative-template .sidebar {
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+
+  .modern-template h1,
+  .professional-template h1,
+  .creative-template h1 {
+    font-size: 1.75rem;
+  }
+}
+
+/* Improve text overflow handling */
+.job-description,
+.education-item p,
+.certification-item p,
+.contact-info p {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+/* Fix for the creative template language items */
+.creative-template .language-item {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.creative-template .proficiency {
+  color: #e5e7eb;
+  font-size: 0.875rem;
+}
+
+/* Fix for modern template */
+.modern-template {
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.modern-template header {
+  border-bottom: 2px solid #2563eb;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.modern-template .contact-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.modern-template section {
+  margin-bottom: 1.5rem;
+}
+
+.modern-template .experience-item,
+.modern-template .education-item {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.modern-template .experience-item:last-child,
+.modern-template .education-item:last-child {
+  border-bottom: none;
+}
+
+.modern-template .skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Grammar and spelling check styles for all templates */
+.professional-template p,
+.creative-template p,
+.modern-template p {
+  line-height: 1.5;
+  text-align: justify;
+}
+
+.experience-item .job-description,
+.education-item p {
+  max-height: 200px;
+  overflow: auto;
+}
+
+/* Text overflow handling for all elements */
+.modern-template *,
+.professional-template *,
+.creative-template * {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+/* Limit content height for long descriptions */
+.job-description,
+.education-item p,
+.certification-item p {
+  max-height: 150px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  padding-right: 5px;
+}
+
+/* For print/PDF specifically */
+.resume-for-print {
+  padding: 20px;
+}
+
+.resume-for-print .modern-template,
+.resume-for-print .professional-template,
+.resume-for-print .creative-template {
+  max-width: 100%;
+  min-height: auto;
+  overflow: visible;
+}
+
+.resume-for-print .creative-template {
+  display: grid;
+  grid-template-columns: 30% 70%;
+}
+
+.resume-for-print .creative-template .sidebar {
+  background-color: #1e3a8a !important;
+  color: white !important;
+  -webkit-print-color-adjust: exact;
+}
+
+.resume-for-print .job-description,
+.resume-for-print .education-item p,
+.resume-for-print .certification-item p {
+  max-height: none;
+  overflow: visible;
+} 
