@@ -319,7 +319,13 @@ const ResumePreview = () => {
   };
 
   const handleEdit = () => {
-    navigate(-1);
+    // Navigate back to resume builder with the current form data preserved
+    navigate(`/resume-builder/${templateId}`, { 
+      state: { 
+        formData,
+        isEditing: true 
+      } 
+    });
   };
 
   const handleSubmit = () => {
@@ -333,10 +339,14 @@ const ResumePreview = () => {
   
   const getTemplateName = () => {
     switch (templateId) {
-      case '1': return 'Professional';
-      case '2': return 'Creative';
-      case '3': return 'Modern';
-      default: return 'Professional';
+      case '1':
+        return 'Professional';
+      case '2':
+        return 'Creative';
+      case '3':
+        return 'Modern';
+      default:
+        return 'Professional';
     }
   };
 
@@ -356,34 +366,20 @@ const ResumePreview = () => {
   return (
     <div className="preview-container">
       <div className="preview-header">
-        <h1>Resume Preview - {getTemplateName()} Template</h1>
-        <p>Review your resume and download it as a PDF or make further edits</p>
+        <h1>Resume Preview: {getTemplateName()} Template</h1>
+        <div className="preview-actions">
+          <button onClick={handleEdit} className="btn-secondary">
+            Edit Resume
+          </button>
+          <button onClick={handlePrint} className="btn-primary">
+            Print
+          </button>
+          <button onClick={handleSaveAsPDF} className="btn-primary">
+            Download PDF
+          </button>
+        </div>
       </div>
-      
-      <div className="preview-actions">
-        <button onClick={handleEdit} className="btn-secondary">
-          <i className="icon-edit"></i> Edit Resume
-        </button>
-        <button onClick={handleSaveAsPDF} className="btn-primary">
-          <i className="icon-download"></i> Download PDF
-        </button>
-        <button onClick={handleSubmit} className="btn-success">
-          <i className="icon-check"></i> Submit Resume
-        </button>
-      </div>
-      
-      <div className="resume-preview">
-        {renderTemplate()}
-      </div>
-      
-      <div className="preview-footer">
-        <button onClick={handleEdit} className="btn-secondary">
-          Go Back to Edit
-        </button>
-        <button onClick={handlePrint} className="btn-primary">
-          Print/Save as PDF
-        </button>
-      </div>
+      <div className="resume-preview">{renderTemplate()}</div>
     </div>
   );
 };
@@ -401,25 +397,25 @@ const ProfessionalTemplate = ({ formData }) => {
   return (
     <div className="professional-template">
       <header>
-        <h1>{personalInfo.fullName}</h1>
+        <h1>{personalInfo.fullName.text}</h1>
         <div className="contact-info">
-          {personalInfo.email && <p>{personalInfo.email}</p>}
-          {personalInfo.phone && <p>{personalInfo.phone}</p>}
-          {(personalInfo.address || personalInfo.city || personalInfo.state || personalInfo.zipCode) && (
+          {personalInfo.email.text && <p>{personalInfo.email.text}</p>}
+          {personalInfo.phone.text && <p>{personalInfo.phone.text}</p>}
+          {(personalInfo.address.text || personalInfo.city.text || personalInfo.state.text || personalInfo.zipCode.text) && (
             <p>
-              {personalInfo.address && `${personalInfo.address}, `}
-              {personalInfo.city && `${personalInfo.city}, `}
-              {personalInfo.state} {personalInfo.zipCode}
+              {personalInfo.address.text && `${personalInfo.address.text}, `}
+              {personalInfo.city.text && `${personalInfo.city.text}, `}
+              {personalInfo.state.text} {personalInfo.zipCode.text}
             </p>
           )}
-          {personalInfo.linkedin && <p>LinkedIn: {personalInfo.linkedin}</p>}
-          {personalInfo.portfolio && <p>Portfolio: {personalInfo.portfolio}</p>}
+          {personalInfo.linkedin.text && <p>LinkedIn: {personalInfo.linkedin.text}</p>}
+          {personalInfo.portfolio.text && <p>Portfolio: {personalInfo.portfolio.text}</p>}
         </div>
       </header>
 
       <section className="summary">
         <h2>Professional Summary</h2>
-        <p>{professionalSummary}</p>
+        <p>{professionalSummary.text}</p>
       </section>
 
       <section className="experience">
@@ -427,13 +423,13 @@ const ProfessionalTemplate = ({ formData }) => {
         {experience.map((exp) => (
           <div key={exp.id} className="experience-item">
             <div className="job-header">
-              <h3>{exp.title}</h3>
-              <p className="company">{exp.company}{exp.location && `, ${exp.location}`}</p>
+              <h3>{exp.title.text}</h3>
+              <p className="company">{exp.company.text}{exp.location.text && `, ${exp.location.text}`}</p>
               <p className="date">
                 {formatDate(exp.startDate)} {exp.current ? '- Present' : exp.endDate && `- ${formatDate(exp.endDate)}`}
               </p>
             </div>
-            <p className="job-description">{exp.description}</p>
+            <p className="job-description">{exp.description.text}</p>
           </div>
         ))}
       </section>
@@ -444,23 +440,23 @@ const ProfessionalTemplate = ({ formData }) => {
             <h2>Education</h2>
             {education.map((edu) => (
               <div key={edu.id} className="education-item">
-                <h3>{edu.school}</h3>
-                <p>{edu.degree}{edu.fieldOfStudy && ` in ${edu.fieldOfStudy}`}</p>
+                <h3>{edu.school.text}</h3>
+                <p>{edu.degree.text}{edu.fieldOfStudy.text && ` in ${edu.fieldOfStudy.text}`}</p>
                 <p className="date">
                   {formatDate(edu.startDate)} {edu.current ? '- Present' : edu.endDate && `- ${formatDate(edu.endDate)}`}
                 </p>
-                {edu.description && <p>{edu.description}</p>}
+                {edu.description.text && <p>{edu.description.text}</p>}
               </div>
             ))}
           </section>
 
-          {certifications.some(cert => cert.name.trim()) && (
+          {certifications.some(cert => cert.name.text && cert.name.text.trim()) && (
             <section className="certifications">
               <h2>Certifications</h2>
-              {certifications.filter(cert => cert.name.trim()).map((cert) => (
+              {certifications.filter(cert => cert.name.text && cert.name.text.trim()).map((cert) => (
                 <div key={cert.id} className="certification-item">
-                  <h3>{cert.name}</h3>
-                  <p>{cert.issuer}</p>
+                  <h3>{cert.name.text}</h3>
+                  <p>{cert.issuer.text}</p>
                   <p className="date">
                     {formatDate(cert.issueDate)} {cert.expiryDate && `- ${formatDate(cert.expiryDate)}`}
                   </p>
@@ -474,19 +470,19 @@ const ProfessionalTemplate = ({ formData }) => {
           <section className="skills">
             <h2>Skills</h2>
             <div className="skills-list">
-              {skills.filter(skill => skill.trim()).map((skill, index) => (
-                <span key={index} className="skill-tag">{skill}</span>
+              {skills.filter(skill => skill.text && skill.text.trim()).map((skill, index) => (
+                <span key={index} className="skill-tag">{skill.text}</span>
               ))}
             </div>
           </section>
 
-          {languages.some(lang => lang.language.trim()) && (
+          {languages.some(lang => lang.language.text && lang.language.text.trim()) && (
             <section className="languages">
               <h2>Languages</h2>
               <div className="languages-list">
-                {languages.filter(lang => lang.language.trim()).map((lang) => (
+                {languages.filter(lang => lang.language.text && lang.language.text.trim()).map((lang) => (
                   <div key={lang.id} className="language-item">
-                    <span className="language">{lang.language}</span>
+                    <span className="language">{lang.language.text}</span>
                     <span className="proficiency">{lang.proficiency}</span>
                   </div>
                 ))}
@@ -499,11 +495,11 @@ const ProfessionalTemplate = ({ formData }) => {
   );
 };
 
-// Add PropTypes after the component definition
+// Update PropTypes
 ProfessionalTemplate.propTypes = {
   formData: PropTypes.shape({
     personalInfo: PropTypes.object.isRequired,
-    professionalSummary: PropTypes.string.isRequired,
+    professionalSummary: PropTypes.object.isRequired,
     experience: PropTypes.array.isRequired,
     education: PropTypes.array.isRequired,
     skills: PropTypes.array.isRequired,
@@ -526,34 +522,34 @@ const CreativeTemplate = ({ formData }) => {
     <div className="creative-template">
       <div className="sidebar">
         <div className="profile">
-          <h1>{personalInfo.fullName}</h1>
+          <h1>{personalInfo.fullName.text}</h1>
           <div className="contact-info">
-            {personalInfo.email && <p>{personalInfo.email}</p>}
-            {personalInfo.phone && <p>{personalInfo.phone}</p>}
-            {personalInfo.address && <p>{personalInfo.address}</p>}
-            {(personalInfo.city || personalInfo.state || personalInfo.zipCode) && 
-              <p>{personalInfo.city && `${personalInfo.city}, `}{personalInfo.state} {personalInfo.zipCode}</p>}
-            {personalInfo.linkedin && <p>{personalInfo.linkedin}</p>}
-            {personalInfo.portfolio && <p>{personalInfo.portfolio}</p>}
+            {personalInfo.email.text && <p>{personalInfo.email.text}</p>}
+            {personalInfo.phone.text && <p>{personalInfo.phone.text}</p>}
+            {personalInfo.address.text && <p>{personalInfo.address.text}</p>}
+            {(personalInfo.city.text || personalInfo.state.text || personalInfo.zipCode.text) && 
+              <p>{personalInfo.city.text && `${personalInfo.city.text}, `}{personalInfo.state.text} {personalInfo.zipCode.text}</p>}
+            {personalInfo.linkedin.text && <p>{personalInfo.linkedin.text}</p>}
+            {personalInfo.portfolio.text && <p>{personalInfo.portfolio.text}</p>}
           </div>
         </div>
 
         <section className="skills">
           <h2>Skills</h2>
           <div className="skills-list">
-            {skills.filter(skill => skill.trim()).map((skill, index) => (
-              <span key={index} className="skill-tag">{skill}</span>
+            {skills.filter(skill => skill.text && skill.text.trim()).map((skill, index) => (
+              <span key={index} className="skill-tag">{skill.text}</span>
             ))}
           </div>
         </section>
 
-        {languages.some(lang => lang.language.trim()) && (
+        {languages.some(lang => lang.language.text && lang.language.text.trim()) && (
           <section className="languages">
             <h2>Languages</h2>
             <div className="languages-list">
-              {languages.filter(lang => lang.language.trim()).map((lang) => (
+              {languages.filter(lang => lang.language.text && lang.language.text.trim()).map((lang) => (
                 <div key={lang.id} className="language-item">
-                  <span className="language">{lang.language}</span>
+                  <span className="language">{lang.language.text}</span>
                   <span className="proficiency">{lang.proficiency}</span>
                 </div>
               ))}
@@ -565,7 +561,7 @@ const CreativeTemplate = ({ formData }) => {
       <div className="main-content">
         <section className="summary">
           <h2>Professional Summary</h2>
-          <p>{professionalSummary}</p>
+          <p>{professionalSummary.text}</p>
         </section>
 
         <section className="experience">
@@ -573,13 +569,13 @@ const CreativeTemplate = ({ formData }) => {
           {experience.map((exp) => (
             <div key={exp.id} className="experience-item">
               <div className="job-header">
-                <h3>{exp.title}</h3>
-                <p className="company">{exp.company}{exp.location && `, ${exp.location}`}</p>
+                <h3>{exp.title.text}</h3>
+                <p className="company">{exp.company.text}{exp.location.text && `, ${exp.location.text}`}</p>
                 <p className="date">
                   {formatDate(exp.startDate)} {exp.current ? '- Present' : exp.endDate && `- ${formatDate(exp.endDate)}`}
                 </p>
               </div>
-              <p className="job-description">{exp.description}</p>
+              <p className="job-description">{exp.description.text}</p>
             </div>
           ))}
         </section>
@@ -588,23 +584,23 @@ const CreativeTemplate = ({ formData }) => {
           <h2>Education</h2>
           {education.map((edu) => (
             <div key={edu.id} className="education-item">
-              <h3>{edu.school}</h3>
-              <p>{edu.degree}{edu.fieldOfStudy && ` in ${edu.fieldOfStudy}`}</p>
+              <h3>{edu.school.text}</h3>
+              <p>{edu.degree.text}{edu.fieldOfStudy.text && ` in ${edu.fieldOfStudy.text}`}</p>
               <p className="date">
                 {formatDate(edu.startDate)} {edu.current ? '- Present' : edu.endDate && `- ${formatDate(edu.endDate)}`}
               </p>
-              {edu.description && <p>{edu.description}</p>}
+              {edu.description.text && <p>{edu.description.text}</p>}
             </div>
           ))}
         </section>
 
-        {certifications.some(cert => cert.name.trim()) && (
+        {certifications.some(cert => cert.name.text && cert.name.text.trim()) && (
           <section className="certifications">
             <h2>Certifications</h2>
-            {certifications.filter(cert => cert.name.trim()).map((cert) => (
+            {certifications.filter(cert => cert.name.text && cert.name.text.trim()).map((cert) => (
               <div key={cert.id} className="certification-item">
-                <h3>{cert.name}</h3>
-                <p>{cert.issuer}</p>
+                <h3>{cert.name.text}</h3>
+                <p>{cert.issuer.text}</p>
                 <p className="date">
                   {formatDate(cert.issueDate)} {cert.expiryDate && `- ${formatDate(cert.expiryDate)}`}
                 </p>
@@ -617,11 +613,11 @@ const CreativeTemplate = ({ formData }) => {
   );
 };
 
-// Add PropTypes after the component definition
+// Update PropTypes
 CreativeTemplate.propTypes = {
   formData: PropTypes.shape({
     personalInfo: PropTypes.object.isRequired,
-    professionalSummary: PropTypes.string.isRequired,
+    professionalSummary: PropTypes.object.isRequired,
     experience: PropTypes.array.isRequired,
     education: PropTypes.array.isRequired,
     skills: PropTypes.array.isRequired,
@@ -643,25 +639,60 @@ const ModernTemplate = ({ formData }) => {
   return (
     <div className="modern-template">
       <header>
-        <h1>{personalInfo.fullName}</h1>
+        <h1 style={{
+          fontFamily: personalInfo.fullName.fontStyle,
+          fontSize: personalInfo.fullName.fontSize,
+          fontWeight: personalInfo.fullName.bold ? 'bold' : 'normal',
+          fontStyle: personalInfo.fullName.italic ? 'italic' : 'normal'
+        }}>{personalInfo.fullName.text}</h1>
         <div className="contact-info">
-          {personalInfo.email && <p>{personalInfo.email}</p>}
-          {personalInfo.phone && <p>{personalInfo.phone}</p>}
-          {(personalInfo.address || personalInfo.city || personalInfo.state || personalInfo.zipCode) && (
-            <p>
-              {personalInfo.address && `${personalInfo.address}, `}
-              {personalInfo.city && `${personalInfo.city}, `}
-              {personalInfo.state} {personalInfo.zipCode}
+          {personalInfo.email.text && <p style={{
+            fontFamily: personalInfo.email.fontStyle,
+            fontSize: personalInfo.email.fontSize,
+            fontWeight: personalInfo.email.bold ? 'bold' : 'normal',
+            fontStyle: personalInfo.email.italic ? 'italic' : 'normal'
+          }}>{personalInfo.email.text}</p>}
+          {personalInfo.phone.text && <p style={{
+            fontFamily: personalInfo.phone.fontStyle,
+            fontSize: personalInfo.phone.fontSize,
+            fontWeight: personalInfo.phone.bold ? 'bold' : 'normal',
+            fontStyle: personalInfo.phone.italic ? 'italic' : 'normal'
+          }}>{personalInfo.phone.text}</p>}
+          {(personalInfo.address.text || personalInfo.city.text || personalInfo.state.text || personalInfo.zipCode.text) && (
+            <p style={{
+              fontFamily: personalInfo.address.fontStyle,
+              fontSize: personalInfo.address.fontSize,
+              fontWeight: personalInfo.address.bold ? 'bold' : 'normal',
+              fontStyle: personalInfo.address.italic ? 'italic' : 'normal'
+            }}>
+              {personalInfo.address.text && `${personalInfo.address.text}, `}
+              {personalInfo.city.text && `${personalInfo.city.text}, `}
+              {personalInfo.state.text} {personalInfo.zipCode.text}
             </p>
           )}
-          {personalInfo.linkedin && <p>LinkedIn: {personalInfo.linkedin}</p>}
-          {personalInfo.portfolio && <p>Portfolio: {personalInfo.portfolio}</p>}
+          {personalInfo.linkedin.text && <p style={{
+            fontFamily: personalInfo.linkedin.fontStyle,
+            fontSize: personalInfo.linkedin.fontSize,
+            fontWeight: personalInfo.linkedin.bold ? 'bold' : 'normal',
+            fontStyle: personalInfo.linkedin.italic ? 'italic' : 'normal'
+          }}>LinkedIn: {personalInfo.linkedin.text}</p>}
+          {personalInfo.portfolio.text && <p style={{
+            fontFamily: personalInfo.portfolio.fontStyle,
+            fontSize: personalInfo.portfolio.fontSize,
+            fontWeight: personalInfo.portfolio.bold ? 'bold' : 'normal',
+            fontStyle: personalInfo.portfolio.italic ? 'italic' : 'normal'
+          }}>Portfolio: {personalInfo.portfolio.text}</p>}
         </div>
       </header>
 
       <section className="summary">
         <h2>Professional Summary</h2>
-        <p>{professionalSummary}</p>
+        <p style={{
+          fontFamily: professionalSummary.fontStyle,
+          fontSize: professionalSummary.fontSize,
+          fontWeight: professionalSummary.bold ? 'bold' : 'normal',
+          fontStyle: professionalSummary.italic ? 'italic' : 'normal'
+        }}>{professionalSummary.text}</p>
       </section>
 
       <section className="experience">
@@ -669,13 +700,28 @@ const ModernTemplate = ({ formData }) => {
         {experience.map((exp) => (
           <div key={exp.id} className="experience-item">
             <div className="job-header">
-              <h3>{exp.title}</h3>
-              <p className="company">{exp.company}{exp.location && `, ${exp.location}`}</p>
+              <h3 style={{
+                fontFamily: exp.title.fontStyle,
+                fontSize: exp.title.fontSize,
+                fontWeight: exp.title.bold ? 'bold' : 'normal',
+                fontStyle: exp.title.italic ? 'italic' : 'normal'
+              }}>{exp.title.text}</h3>
+              <p className="company" style={{
+                fontFamily: exp.company.fontStyle,
+                fontSize: exp.company.fontSize,
+                fontWeight: exp.company.bold ? 'bold' : 'normal',
+                fontStyle: exp.company.italic ? 'italic' : 'normal'
+              }}>{exp.company.text}{exp.location.text && `, ${exp.location.text}`}</p>
               <p className="date">
                 {formatDate(exp.startDate)} {exp.current ? '- Present' : exp.endDate && `- ${formatDate(exp.endDate)}`}
               </p>
             </div>
-            <p className="job-description">{exp.description}</p>
+            <p className="job-description" style={{
+              fontFamily: exp.description.fontStyle,
+              fontSize: exp.description.fontSize,
+              fontWeight: exp.description.bold ? 'bold' : 'normal',
+              fontStyle: exp.description.italic ? 'italic' : 'normal'
+            }}>{exp.description.text}</p>
           </div>
         ))}
       </section>
@@ -684,12 +730,27 @@ const ModernTemplate = ({ formData }) => {
         <h2>Education</h2>
         {education.map((edu) => (
           <div key={edu.id} className="education-item">
-            <h3>{edu.school}</h3>
-            <p>{edu.degree}{edu.fieldOfStudy && ` in ${edu.fieldOfStudy}`}</p>
+            <h3 style={{
+              fontFamily: edu.school.fontStyle,
+              fontSize: edu.school.fontSize,
+              fontWeight: edu.school.bold ? 'bold' : 'normal',
+              fontStyle: edu.school.italic ? 'italic' : 'normal'
+            }}>{edu.school.text}</h3>
+            <p style={{
+              fontFamily: edu.degree.fontStyle,
+              fontSize: edu.degree.fontSize,
+              fontWeight: edu.degree.bold ? 'bold' : 'normal',
+              fontStyle: edu.degree.italic ? 'italic' : 'normal'
+            }}>{edu.degree.text}{edu.fieldOfStudy.text && ` in ${edu.fieldOfStudy.text}`}</p>
             <p className="date">
               {formatDate(edu.startDate)} {edu.current ? '- Present' : edu.endDate && `- ${formatDate(edu.endDate)}`}
             </p>
-            {edu.description && <p>{edu.description}</p>}
+            {edu.description.text && <p style={{
+              fontFamily: edu.description.fontStyle,
+              fontSize: edu.description.fontSize,
+              fontWeight: edu.description.bold ? 'bold' : 'normal',
+              fontStyle: edu.description.italic ? 'italic' : 'normal'
+            }}>{edu.description.text}</p>}
           </div>
         ))}
       </section>
@@ -697,19 +758,34 @@ const ModernTemplate = ({ formData }) => {
       <section className="skills">
         <h2>Skills</h2>
         <div className="skills-list">
-          {skills.filter(skill => skill.trim()).map((skill, index) => (
-            <span key={index} className="skill-tag">{skill}</span>
+          {skills.filter(skill => skill.text.trim()).map((skill, index) => (
+            <span key={index} className="skill-tag" style={{
+              fontFamily: skill.fontStyle,
+              fontSize: skill.fontSize,
+              fontWeight: skill.bold ? 'bold' : 'normal',
+              fontStyle: skill.italic ? 'italic' : 'normal'
+            }}>{skill.text}</span>
           ))}
         </div>
       </section>
 
-      {certifications.some(cert => cert.name.trim()) && (
+      {certifications.some(cert => cert.name.text.trim()) && (
         <section className="certifications">
           <h2>Certifications</h2>
-          {certifications.filter(cert => cert.name.trim()).map((cert) => (
+          {certifications.filter(cert => cert.name.text.trim()).map((cert) => (
             <div key={cert.id} className="certification-item">
-              <h3>{cert.name}</h3>
-              <p>{cert.issuer}</p>
+              <h3 style={{
+                fontFamily: cert.name.fontStyle,
+                fontSize: cert.name.fontSize,
+                fontWeight: cert.name.bold ? 'bold' : 'normal',
+                fontStyle: cert.name.italic ? 'italic' : 'normal'
+              }}>{cert.name.text}</h3>
+              <p style={{
+                fontFamily: cert.issuer.fontStyle,
+                fontSize: cert.issuer.fontSize,
+                fontWeight: cert.issuer.bold ? 'bold' : 'normal',
+                fontStyle: cert.issuer.italic ? 'italic' : 'normal'
+              }}>{cert.issuer.text}</p>
               <p className="date">
                 {formatDate(cert.issueDate)} {cert.expiryDate && `- ${formatDate(cert.expiryDate)}`}
               </p>
@@ -718,13 +794,18 @@ const ModernTemplate = ({ formData }) => {
         </section>
       )}
 
-      {languages.some(lang => lang.language.trim()) && (
+      {languages.some(lang => lang.language.text.trim()) && (
         <section className="languages">
           <h2>Languages</h2>
           <div className="languages-list">
-            {languages.filter(lang => lang.language.trim()).map((lang) => (
+            {languages.filter(lang => lang.language.text.trim()).map((lang) => (
               <div key={lang.id} className="language-item">
-                <span className="language">{lang.language}</span>
+                <span className="language" style={{
+                  fontFamily: lang.language.fontStyle,
+                  fontSize: lang.language.fontSize,
+                  fontWeight: lang.language.bold ? 'bold' : 'normal',
+                  fontStyle: lang.language.italic ? 'italic' : 'normal'
+                }}>{lang.language.text}</span>
                 <span className="proficiency">{lang.proficiency}</span>
               </div>
             ))}
@@ -739,7 +820,7 @@ const ModernTemplate = ({ formData }) => {
 ModernTemplate.propTypes = {
   formData: PropTypes.shape({
     personalInfo: PropTypes.object.isRequired,
-    professionalSummary: PropTypes.string.isRequired,
+    professionalSummary: PropTypes.object.isRequired,
     experience: PropTypes.array.isRequired,
     education: PropTypes.array.isRequired,
     skills: PropTypes.array.isRequired,
